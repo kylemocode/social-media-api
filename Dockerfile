@@ -8,4 +8,4 @@ COPY . /app
 
 RUN npm install
 
-CMD ["npm", "run", "dev"]
+CMD ["NODE_ENV=docker_development", "npm", "run", "dev"]

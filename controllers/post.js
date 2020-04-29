@@ -14,7 +14,7 @@ exports.getPosts = async (req, res) => {
 
 exports.getPost = async (req, res) => {
 	try {
-		const postId = req.params.id; s
+		const postId = req.params.id;
 		const post = await Post.findByPk(postId);
 		if (post) {
 			console.log('test')

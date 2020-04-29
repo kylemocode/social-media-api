@@ -11,6 +11,7 @@ const Comment = require('./models/comment');
 const Collection = require('./models/collection');
 const CollectionItem = require('./models/collection-item');
 const adminRoutes = require('./routes/admin');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -26,17 +27,9 @@ app.use(limiter);
 app.use(express.json({ limit: '1000kb' })); // body limit is 1000
 app.use(xss());
 
-app.use((req, res, next) => {
-	User.findByPk(1)
-		.then(user => {
-			req.user = user;
-			next();
-		})
-		.catch(err => console.log(err));
-})
-
 // routes
 app.use('/admin', adminRoutes);
+app.use('/auth', authRoutes);
 
 // DB table relation
 User.hasMany(Post);
@@ -56,7 +49,7 @@ sequelize.sync()
 	})
 	.then((user) => {
 		if (!user) {
-			return User.create({ name: 'Kyle', email: 'oldmo860617@gmail.com' })
+			return User.create({ name: 'Kyle', email: 'oldmo860617@gmail.com', password: 'oo0981833393' })
 		}
 		return user;
 	})
